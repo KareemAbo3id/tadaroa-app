@@ -3,32 +3,38 @@
 /* eslint-disable object-curly-newline */
 import React from 'react';
 import { View, StyleSheet } from 'react-native';
+import { MD3LightTheme as DefaultTheme, Provider as PaperProvider } from 'react-native-paper';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { useFonts } from 'expo-font';
 import * as SplashScreen from 'expo-splash-screen';
-import usePalette from './src/hooks/usePalette.hook';
-import useNav from './src/hooks/useNav.hook';
 
 import Home from './src/start/Home.start';
 import SettingNav from './src/screens/Setting.nav';
-import RouteAppBar from './src/components/RouteAppBar.component';
 import EntryNav from './src/screens/Entry.nav';
 // imports ////////////////////////////////
 
 SplashScreen.preventAutoHideAsync();
 const Stack = createNativeStackNavigator();
 
-const APP_SCREENS = [
-  { id: 1, component: EntryNav, title: '', name: 'Entry' },
-  { id: 2, component: SettingNav, title: 'الاعدادات', name: 'Setting' },
-];
+const theme = {
+  ...DefaultTheme,
+
+  colors: {
+    primary: '#09222c',
+    secondary: '#e2b925',
+    tertiary: '#828b92',
+    white: '#ffffff',
+    black: '#000',
+    gray: '#8d8d8d',
+    transparent: 'transparent',
+  },
+};
+
+const APP_SCREENS = [{ id: 2, component: SettingNav, title: 'الاعدادات', name: 'Setting' }];
 
 // react function /////////////////////////
 function AppNav() {
-  const Palette = usePalette();
-  const go = useNav();
-
   // local ui:
 
   return (
@@ -36,35 +42,25 @@ function AppNav() {
       <Stack.Screen
         name="home"
         component={Home}
-        options={{ statusBarColor: Palette.Primary, headerShown: false, animation: 'simple_push' }}
+        options={{ headerShown: false, animation: 'simple_push' }}
       />
+      <Stack.Screen name="Entry" component={EntryNav} />
       {APP_SCREENS.map((screen) => {
-        return (
-          <Stack.Screen
-            key={screen.id}
-            name={screen.name}
-            component={screen.component}
-            options={{
-              statusBarColor: Palette.Primary,
-              header: () => <RouteAppBar title={screen.title} onPress={() => go.to('home')} />,
-              animation: 'fade_from_bottom',
-            }}
-          />
-        );
+        return <Stack.Screen key={screen.id} name={screen.name} component={screen.component} />;
       })}
     </Stack.Navigator>
   );
 }
 
 function RootNav() {
-  const Palette = usePalette();
   return (
     <Stack.Navigator>
       <Stack.Screen
         name="root"
         component={AppNav}
         options={{
-          statusBarColor: Palette.Primary,
+          statusBarStyle: 'auto',
+          statusBarColor: theme.colors.primary,
           headerShown: false,
           animation: 'simple_push',
         }}
@@ -95,7 +91,9 @@ export default function App() {
   return (
     <NavigationContainer>
       <View style={Styles.fullScreen} onLayout={onLayoutRootView}>
-        <RootNav />
+        <PaperProvider theme={theme}>
+          <RootNav />
+        </PaperProvider>
       </View>
     </NavigationContainer>
   );

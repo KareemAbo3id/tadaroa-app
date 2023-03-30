@@ -1,15 +1,15 @@
+/* eslint-disable react/jsx-wrap-multilines */
 import React, { useState } from 'react';
 import { Stack } from '@react-native-material/core';
 import { RefreshControl, ScrollView, StyleSheet } from 'react-native';
-import { Text } from 'react-native-paper';
+import { Text, useTheme } from 'react-native-paper';
 import KMFont from '../hooks/useFont.hook';
-import usePalette from '../hooks/usePalette.hook';
 // imports ////////////////////////////////
 
 // react function /////////////////////////
 export default function EntryNav() {
   // local hooks:
-  const Palette = usePalette();
+  const theme = useTheme();
   const [refreshing, setRefreshing] = useState(false);
 
   // local handlers:
@@ -27,7 +27,11 @@ export default function EntryNav() {
     <ScrollView
       style={Styles.fullScreen}
       refreshControl={
-        <RefreshControl colors={[Palette.Primary]} refreshing={refreshing} onRefresh={onRefresh} />
+        <RefreshControl
+          colors={[theme.colors.primary]}
+          refreshing={refreshing}
+          onRefresh={onRefresh}
+        />
       }
     >
       <Stack
@@ -39,8 +43,11 @@ export default function EntryNav() {
         mt={20}
         spacing={10}
       >
-        <Text variant="titleSmall" style={{ fontFamily: KMFont.Bold, color: Palette.SecDark }}>
-          قائمة الادعية والاذكار
+        <Text
+          variant="headlineLarge"
+          style={{ fontFamily: KMFont.Black, color: theme.colors.primary }}
+        >
+          تضرع
         </Text>
       </Stack>
     </ScrollView>

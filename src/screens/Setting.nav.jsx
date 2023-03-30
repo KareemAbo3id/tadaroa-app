@@ -1,16 +1,15 @@
 import React from 'react';
 import { StyleSheet, RefreshControl, ScrollView } from 'react-native';
 import { Stack } from '@react-native-material/core';
-import { Text } from 'react-native-paper';
+import { Text, useTheme } from 'react-native-paper';
 import Version from '../components/Version.component';
 import KMFont from '../hooks/useFont.hook';
-import usePalette from '../hooks/usePalette.hook';
 // imports ////////////////////////////////
 
 // react function /////////////////////////
 export default function SettingNav() {
   // local hooks:
-  const Palette = usePalette();
+  const theme = useTheme();
   const [refreshing, setRefreshing] = React.useState(false);
 
   // onRefresh =============:
@@ -27,7 +26,11 @@ export default function SettingNav() {
     <ScrollView
       style={Styles.fullScreen}
       refreshControl={
-        <RefreshControl colors={[Palette.Primary]} refreshing={refreshing} onRefresh={onRefresh} />
+        <RefreshControl
+          colors={[theme.colors.primary]}
+          refreshing={refreshing}
+          onRefresh={onRefresh}
+        />
       }
     >
       <Stack
@@ -39,7 +42,10 @@ export default function SettingNav() {
         mt={20}
         spacing={10}
       >
-        <Text variant="titleSmall" style={{ fontFamily: KMFont.Bold, color: Palette.SecDark }}>
+        <Text
+          variant="titleSmall"
+          style={{ fontFamily: KMFont.Bold, color: theme.colors.tertiary }}
+        >
           الاعدادات
         </Text>
       </Stack>

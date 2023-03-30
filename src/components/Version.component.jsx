@@ -1,14 +1,13 @@
 /* eslint-disable react-native/no-inline-styles */
 import React from 'react';
-import { Text } from 'react-native-paper';
+import { Text, useTheme } from 'react-native-paper';
 import KMFont from '../hooks/useFont.hook';
-import usePalette from '../hooks/usePalette.hook';
 // imports ////////////////////////////////
 
 // react function /////////////////////////
 export default function Version() {
   // local hooks:
-  const Palette = usePalette();
+  const theme = useTheme();
 
   // local handlers:
 
@@ -16,7 +15,7 @@ export default function Version() {
   return (
     <Text
       style={{
-        color: Palette.SecDark,
+        color: theme.colors.tertiary,
         textAlign: 'center',
         fontFamily: KMFont.Regular,
       }}

@@ -1,22 +1,23 @@
 import React from 'react';
 import { StyleSheet } from 'react-native';
-import { Appbar, Text } from 'react-native-paper';
+import { Appbar, Text, useTheme } from 'react-native-paper';
 import KMFont from '../hooks/useFont.hook';
-import usePalette from '../hooks/usePalette.hook';
 // imports ////////////////////////////////
 
 // react function /////////////////////////
 export default function AppBar({ title }) {
   // local hooks:
-
-  const Palette = usePalette();
+  const theme = useTheme();
 
   // local handlers:
 
   // local ui:
   return (
-    <Appbar style={[Styles.AppbarStyle, { backgroundColor: Palette.Primary }]}>
-      <Text variant="bodyLarge" style={{ fontFamily: KMFont.Bold, color: Palette.White }}>
+    <Appbar elevated style={[Styles.AppbarStyle, { backgroundColor: theme.colors.primary }]}>
+      <Text
+        variant="titleMedium"
+        style={{ fontFamily: KMFont.Bold, color: theme.colors.secondary }}
+      >
         {title}
       </Text>
     </Appbar>
